@@ -1,5 +1,7 @@
-$body-color: blue;
+$body-color: rgb(41, 41, 41);
 
 body {
   color: $body-color;
+  padding-left: 15px;
+  padding-right: 15px;
 }
