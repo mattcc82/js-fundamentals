@@ -5,6 +5,10 @@ A lightweight foundation for your next webpack based frontend project. Cloned we
 
 Used to explore JS ES6 fundamentals. Just need Node and NPM installed. Includes .editorconfig for VS Code formatting.
 
+example code sitting in:
+```
+./src/scripts/index.js
+```
 
 ### Installation
 
