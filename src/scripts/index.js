@@ -343,4 +343,55 @@ let iffe = (() => {
 console.log(iffe.inner1())
 console.log(iffe.inner2())
 
+console.info(`%c
+// Closures
+// see link
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+`,
+'color:#fff; background:dodgerblue;')
+console.log(`
+let module = (() => {
+  let id = 11002
+  let getId = () => {
+    return id
+  }
+  return {
+    func: getId
+  }
+})
+console.log(module.func())
+
+- variable "module" is set to the return value of the IIFE...
+- ...including reference to the function "getId()" which returns the block-scoped var "id" 
+`)
+let module = (() => {
+  let id = 11002
+  let getId = () => {
+    return id
+  }
+  return {
+    func: getId
+  }
+})()
+console.log(module.func())
+
+console.info(`%c
+// The "this" keyword
+`,
+'color:#fff; background:dodgerblue;')
+console.log(`
+let fn = function () {
+  console.log(this === window)
+}
+fn()
+`)
+let o = {
+  id: 123,
+  getId: function () {
+    console.log(this)
+    return this.id
+  }
+}
+console.log(o.getId())
+
 console.error('SCROLL TO THE TOP ^^')
