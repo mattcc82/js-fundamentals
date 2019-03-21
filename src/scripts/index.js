@@ -104,12 +104,14 @@ console.log(`
 
 wrap object destructuring in parentheses to tell compiler to destructure, not treat it as a code block
 
+let aObj2 = { aId: 10000, aProp1: 'some string' }
 let aId, aProp1
-({ aId, aProp1 } = aObj)
+({ aId, aProp1 } = aObj2)
 console.log(aId, aProp1)
 `)
+let aObj2 = { aId: 10000, aProp1: 'some string' }
 let aId, aProp1
-({ aId, aProp1 } = aObj)
+({ aId, aProp1 } = aObj2)
 console.log(aId, aProp1)
 
 // spread syntax
@@ -377,13 +379,19 @@ console.log(module.func())
 
 console.info(`%c
 // The "this" keyword
+// Important to note that the arrow function in JS does not bind "this" to its own context, but rather the lexical context outside it
+(code block, origin function, ...)
 `,
 'color:#fff; background:dodgerblue;')
 console.log(`
-let fn = function () {
-  console.log(this === window)
+let o = {
+  id: 123,
+  getId: function () {
+    console.log(this)
+    return this.id
+  }
 }
-fn()
+console.log(o.getId())
 `)
 let o = {
   id: 123,
@@ -393,5 +401,55 @@ let o = {
   }
 }
 console.log(o.getId())
+
+console.info(`%c
+// call and apply
+// run the function and change the "this" of that function
+`,
+'color:#fff; background:dodgerblue;')
+console.log(`
+
+// call function inside object with different context (bO)
+let aO = {
+  id: 123,
+  getId: function () {
+    return this.id
+  }
+}
+let bO = { id: 456 }
+console.log(aO.getId.call(bO))
+
+// apply new context and pass arguments as well
+let cO = {
+  id: 123,
+  getId: function (...rest) {
+    let sum = rest.reduce((x, y) => { return x + y })
+    return \`id: \${ this.id }, sum: \${ sum }\`
+  }
+}
+let dO = { id: 456 }
+console.log(cO.getId.apply(dO, [20, 21, 24]))
+
+`)
+// call function inside object with different context (bO)
+let aO = {
+  id: 123,
+  getId: function () {
+    return this.id
+  }
+}
+let bO = { id: 456 }
+console.log(aO.getId.call(bO))
+
+// apply new context and pass arguments as well
+let cO = {
+  id: 123,
+  getId: function (...rest) {
+    let sum = rest.reduce((x, y) => { return x + y })
+    return `id: ${this.id}, sum: ${sum}`
+  }
+}
+let dO = { id: 456 }
+console.log(cO.getId.apply(dO, [20, 21, 24]))
 
 console.error('SCROLL TO THE TOP ^^')
